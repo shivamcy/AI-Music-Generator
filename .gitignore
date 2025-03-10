@@ -1,0 +1,14 @@
+# Ignore virtual environment
+music_env/
+
+# Ignore model files (optional, if they are large)
+models/*.h5
+models/*.pkl
+
+# Ignore generated MIDI files
+generated_music/
+
+# Ignore system files
+__pycache__/
+*.DS_Store
+
