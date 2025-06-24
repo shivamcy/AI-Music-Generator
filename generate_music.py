@@ -3,7 +3,7 @@ import random
 import pickle
 import os
 
-def generate_music_from_trained_model(num_notes=100):
+def generate_music_from_trained_model(num_notes=200):
     with open("model/note_distribution.pkl", "rb") as f:
         notes = pickle.load(f)
 

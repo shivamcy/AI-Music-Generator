@@ -1,11 +1,13 @@
+# app.py
 import gradio as gr
 import os
 from train_model import train_model_on_midis
 from generate_music import generate_music_from_trained_model
+import shutil
 
 # Ensure necessary folders exist
 os.makedirs("user_midi", exist_ok=True)
-os.makedirs("generated_music", exist_ok=True)
+os.makedirs("static/generated_music", exist_ok=True)
 
 # State flag
 model_trained = False
@@ -23,7 +25,9 @@ def generate_music_wrapper(num_notes):
     if not model_trained:
         return None
     output_path = generate_music_from_trained_model(num_notes)
-    return output_path
+    final_output = "static/generated_music/output.wav"
+    shutil.move(output_path, final_output)
+    return final_output
 
 with gr.Blocks(css="""
     #footer {
@@ -54,7 +58,7 @@ with gr.Blocks(css="""
     note_slider = gr.Slider(minimum=50, maximum=500, value=100, step=1, label="Number of Notes")
 
     generate_btn = gr.Button("🎶 Generate Music")
-    output_audio = gr.Audio(label="🎧 Generated Music")
+    output_audio = gr.Audio(label="🎧 Generated Music", type="filepath")
 
     generate_btn.click(fn=generate_music_wrapper, inputs=note_slider, outputs=output_audio)
 
@@ -62,4 +66,3 @@ with gr.Blocks(css="""
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=8080)
-
