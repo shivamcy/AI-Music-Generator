@@ -72,4 +72,4 @@ with gr.Blocks(css="""
     gr.Markdown('<div id="footer">Developed by <a href="https://github.com/shivamcy" target="_blank">shivamcy</a></div>', elem_id="footer")
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=8080)
+    demo.launch()
