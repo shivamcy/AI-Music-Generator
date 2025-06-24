@@ -1,8 +1,3 @@
-import pretty_midi
-import random
-import pickle
-import os
-
 def generate_music_from_trained_model(num_notes=200):
     with open("model/note_distribution.pkl", "rb") as f:
         notes = pickle.load(f)
@@ -20,14 +15,7 @@ def generate_music_from_trained_model(num_notes=200):
 
     new_midi.instruments.append(piano)
     os.makedirs("generated_music", exist_ok=True)
-    output_path = "generated_music/output.wav"
-    new_midi.write("generated_music/output.mid")
 
-    # Convert to WAV using fluidsynth (or use an existing WAV if this step is skipped)
-    try:
-        import subprocess
-        subprocess.run(["timidity", "generated_music/output.mid", "-Ow", "-o", output_path])
-    except Exception as e:
-        print("MIDI to WAV conversion failed:", e)
-
-    return output_path
+    output_path = "generated_music/output.mid"
+    new_midi.write(output_path)
+    return output_path  # return .mid instead of .wav
