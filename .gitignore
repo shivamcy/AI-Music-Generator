@@ -1,14 +1,56 @@
-# Ignore virtual environment
-music_env/
-
-# Ignore model files (optional, if they are large)
-models/*.h5
-models/*.pkl
-
-# Ignore generated MIDI files
-generated_music/
-
-# Ignore system files
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.DS_Store
+*.py[cod]
+*$py.class
 
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# macOS system files
+.DS_Store
+
+# Output / generated music files
+*.wav
+*.mid
+*.mp3
+*.csv
+
+# Gradio flagged data
+.gradio/
+
+# Model files (can be large)
+models/
+checkpoints/
+*.h5
+*.hdf5
+*.pb
+*.pth
+*.pt
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# VS Code settings
+.vscode/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Python distribution metadata
+*.egg
+*.whl
+pip-wheel-metadata/

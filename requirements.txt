@@ -1,6 +1,6 @@
-tensorflow
-numpy
-pandas
-matplotlib
-music21
-
+gradio>=3.36.1
+tensorflow>=2.11.0
+pretty_midi>=0.2.10
+music21>=6.3.0
+numpy>=1.22.0
+scikit-learn>=1.2.0
