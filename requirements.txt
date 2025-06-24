@@ -1,5 +1,7 @@
-gradio>=4.26.0
-pretty_midi>=0.2.10
-music21>=6.3.0
-numpy>=1.22.0
-scikit-learn>=1.2.0
+gradio
+tensorflow
+keras
+numpy
+music21
+pretty_midi
+soundfile

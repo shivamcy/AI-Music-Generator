@@ -1,23 +1,26 @@
-import pretty_midi
-import numpy as np
-import os
+from music21 import converter, note, chord
+import glob
+import pickle
 
-def midi_to_note_sequence(midi_path):
-    midi_data = pretty_midi.PrettyMIDI(midi_path)
+def preprocess_midi_files(data_path="midi_files/*.mid"):
     notes = []
-    for instrument in midi_data.instruments:
-        if not instrument.is_drum:
-            for note in instrument.notes:
-                notes.append((note.start, note.end, note.pitch, note.velocity))
-    notes.sort()  # Sort by start time
+
+    for file in glob.glob(data_path):
+        midi = converter.parse(file)
+        print(f"Processing {file}...")
+
+        for part in midi.parts:
+            for element in part.recurse():
+                if isinstance(element, note.Note):
+                    notes.append(str(element.pitch))
+                elif isinstance(element, chord.Chord):
+                    notes.append('.'.join(str(n) for n in element.normalOrder))
+
+    print(f"Extracted {len(notes)} notes")
+    with open("models/notes.pkl", "wb") as f:
+        pickle.dump(notes, f)
+
     return notes
 
-def extract_features_from_directory(directory):
-    all_notes = []
-    for filename in os.listdir(directory):
-        if filename.endswith(".mid"):
-            path = os.path.join(directory, filename)
-            notes = midi_to_note_sequence(path)
-            pitches = [note[2] for note in notes]
-            all_notes.extend(pitches)
-    return np.array(all_notes)
+if __name__ == "__main__":
+    preprocess_midi_files()
